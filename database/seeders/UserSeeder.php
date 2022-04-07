@@ -32,5 +32,29 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'email' => 'user5@szerveroldali.hu'
         ]);
+
+        User::factory()->create([
+            'email' => 'user6@szerveroldali.hu'
+        ]);
+
+        User::factory()->create([
+            'email' => 'user5@szerveroldali.hu'
+        ]);
+
+        User::factory()->create([
+            'email' => 'user7@szerveroldali.hu'
+        ]);
+
+        User::factory()->create([
+            'email' => 'user8@szerveroldali.hu'
+        ]);
+
+        User::factory()->create([
+            'email' => 'user9@szerveroldali.hu'
+        ]);
+
+        User::factory()->create([
+            'email' => 'user10@szerveroldali.hu'
+        ]);
     }
 }
