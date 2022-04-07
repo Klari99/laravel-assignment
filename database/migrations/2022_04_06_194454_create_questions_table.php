@@ -20,10 +20,10 @@ class CreateQuestionsTable extends Migration
             $table->foreign('form_id')->references('id')->on('forms');
 
             $table->string('question');
-            $table->enum('answer_type', ['TEXTAREA', 'ONE_CHOICE', 'MULTIPLE_CHOICES']);
+            //TODO: enum type, check factory also
+            $table->string('answer_type');
             $table->boolean('required')->default(true);
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
     }
 

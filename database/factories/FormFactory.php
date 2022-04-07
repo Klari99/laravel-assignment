@@ -15,7 +15,7 @@ class FormFactory extends Factory
     {
         return [
             'title' => $this->faker->words(5, true),
-            'expires_at' => $this->faker->dateTimeInterval(now(), '+5 months'),
+            'expires_at' => $this->faker->dateTimeInInterval(now(), '+5 months'),
             'auth_required' => $this->faker->boolean()
         ];
     }

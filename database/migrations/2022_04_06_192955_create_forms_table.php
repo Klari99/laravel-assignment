@@ -15,16 +15,16 @@ class CreateFormsTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('title');
             $table->dateTime('expires_at');
             $table->boolean('auth_required')->default(false);
 
-            $table->integer('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            //TODO: user_id????
+            $table->integer('user_id');
+            //$table->integer('created_by');
+            $table->foreign('user_id')->references('id')->on('users');
 
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
     }
 

@@ -20,8 +20,7 @@ class CreateChoicesTable extends Migration
             $table->foreign('question_id')->references('id')->on('questions');
 
             $table->string('choice');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
     }
 

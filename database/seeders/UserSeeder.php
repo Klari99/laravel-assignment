@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -38,10 +39,6 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'email' => 'user5@szerveroldali.hu'
-        ]);
-
-        User::factory()->create([
             'email' => 'user7@szerveroldali.hu'
         ]);
 
@@ -55,6 +52,10 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'email' => 'user10@szerveroldali.hu'
+        ]);
+
+        User::factory()->create([
+            'email' => 'user11@szerveroldali.hu'
         ]);
     }
 }

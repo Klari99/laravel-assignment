@@ -14,7 +14,7 @@ class AnswerFactory extends Factory
     public function definition()
     {
         return [
-            $this->faker->sentences(3, true)
+            'answer' => $this->faker->sentences(3, true)
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Form;
+use App\Models\Question;
 
 class QuestionSeeder extends Seeder
 {
@@ -17,7 +19,7 @@ class QuestionSeeder extends Seeder
         foreach ($forms as $form) {
             Question::factory(10)
                 ->for($form)
-                ->create(['form_id' => $user->id]);
+                ->create(['form_id' => $form->id]);
         }
     }
 }

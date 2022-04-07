@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Question;
+use App\Models\Answer;
+use App\Models\User;
 
 class AnswerSeeder extends Seeder
 {
@@ -14,15 +17,18 @@ class AnswerSeeder extends Seeder
     public function run()
     {
         $questions = Question::all();
+        $users = User::all();
         foreach ($questions as $question) {
-            
-            $tmpUsers = $users->where('id', '!=', $question->form()->created_by)->random(5);
 
-            foreach ($questions->choices() as $choice) {
+            //TODO: created_by instead of user_id
+            $tmpUsers = $users->where('id', '!=', $question->form->user_id)->random(5);
+            $choices = $question->choices;
+
+            foreach ($choices as $choice) {
                 foreach ($tmpUsers as $user) {
 
                     if ($question->answer_type == 'MULTIPLE_CHOICES') {
-                        $numberOfAnswers = rand(1, count($question->choices()));
+                        $numberOfAnswers = rand(1, count($question->choices));
 
                         Answer::factory($numberOfAnswers)
                         ->for($question)

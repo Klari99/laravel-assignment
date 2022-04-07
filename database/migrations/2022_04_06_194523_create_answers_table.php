@@ -26,8 +26,7 @@ class CreateAnswersTable extends Migration
             $table->foreign('choice_id')->references('id')->on('choices');
 
             $table->string('answer')->nullable();
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
     }
 

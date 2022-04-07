@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Form;
+use App\Models\User;
 
 class FormSeeder extends Seeder
 {
@@ -17,7 +19,7 @@ class FormSeeder extends Seeder
         foreach ($users as $user) {
             Form::factory()
                 ->for($user)
-                ->create(['created_by' => $user->id]);
+                ->create(['user_id' => $user->id]);
         }
     }
 }

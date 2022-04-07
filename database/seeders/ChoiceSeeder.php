@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Question;
+use App\Models\Choice;
 
 class ChoiceSeeder extends Seeder
 {
@@ -23,7 +25,7 @@ class ChoiceSeeder extends Seeder
                 $numberOfChoices = rand(3, 6);
             }
 
-            Choice::factory(énumberOfChoices)
+            Choice::factory($numberOfChoices)
                 ->for($question)
                 ->create(['question_id' => $question->id]);
         }
