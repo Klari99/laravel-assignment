@@ -13,6 +13,11 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $forms = Form::all();
+        foreach ($forms as $form) {
+            Question::factory(10)
+                ->for($form)
+                ->create(['form_id' => $user->id]);
+        }
     }
 }

@@ -13,6 +13,11 @@ class FormSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $users = User::all();
+        foreach ($users as $user) {
+            Form::factory()
+                ->for($user)
+                ->create(['created_by' => $user->id]);
+        }
     }
 }
