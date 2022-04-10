@@ -9,10 +9,10 @@
         <thead class="text-center table-light">
             <tr>
                 <th style="width: 30%">Cím</th>
-                <th style="width: 10%">Lejárat</th>
-                <th style="width: 10%">Kötelező azonosítás</th>
-                <th style="width: 30%">Létrehozva</th>
-                <th style="width: 10%">Módosítva</th>
+                <th style="width: 15%">Lejárat</th>
+                <th style="width: 25%">Kötelező azonosítás</th>
+                <th style="width: 15%">Létrehozva</th>
+                <th style="width: 15%">Módosítva</th>
             </tr>
         </thead>
         <tbody class="text-center">

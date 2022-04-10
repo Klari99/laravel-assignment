@@ -19,16 +19,19 @@ use App\Http\Controllers\CreateFormController;
 Route::get('/', function () {
     //return view('welcome');
     return view('site/menu');
-})->middleware(['auth'])->name('menu');
+})->name('menu')->middleware(['auth']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard')->middleware(['auth']);
 
 Route::get('/create-form', [CreateFormController::class, 'show'])->name('create-form');
 
 Route::get('/forms', [FormsController::class, 'show'])->name('forms');
 
-Route::get('/forms/{id}', [FormsController::class, 'get']) ->name('forms.get');
+Route::get('/forms/{id}', [FormsController::class, 'get'])->name('forms.get');
+
+Route::get('/forms/{id}', [FormsController::class, 'getWithAuth'])
+->name('forms.getWithAuth')->middleware(['auth']);
 
 require __DIR__.'/auth.php';
