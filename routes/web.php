@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\FormsController;
 use App\Http\Controllers\CreateFormController;
 
 /*
@@ -26,5 +27,8 @@ Route::get('/dashboard', function () {
 
 Route::get('/create-form', [CreateFormController::class, 'show'])->name('create-form');
 
-Route::get('/forms', [FormController::class, 'show'])->name('forms');
+Route::get('/forms', [FormsController::class, 'show'])->name('forms');
+
+Route::get('/forms/{id}', [FormsController::class, 'get']) ->name('forms.get');
+
 require __DIR__.'/auth.php';
