@@ -17,7 +17,7 @@ class FormSeeder extends Seeder
     {
         $users = User::all();
         foreach ($users as $user) {
-            Form::factory(3)
+            Form::factory(10)
                 ->for($user)
                 ->create(['user_id' => $user->id]);
         }
