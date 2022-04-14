@@ -14,7 +14,7 @@ class FormFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->words(5, true),
+            'title' => $this->faker->sentence(),
             'expires_at' => $this->faker->dateTimeInInterval(now(), '+5 months'),
             'auth_required' => $this->faker->boolean()
         ];

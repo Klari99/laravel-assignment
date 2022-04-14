@@ -60,57 +60,13 @@ class AnswerSeeder extends Seeder
                         Answer::factory()
                         ->for($question)
                         ->create(['question_id' => $question->id,
-                                'user_id' => $user->id,
-                                'choice_id' => $choice->id
+                                //'choice_id' => $choice->id,
+                                'choice_id' => null,
+                                'user_id' => $user->id
                         ]);
                     }
                 }
             }
         }
-
-        //
-        /*$questions = Question::all();
-        $users = User::all();
-        foreach ($questions as $question) {
-
-            //TODO: created_by instead of user_id
-            $tmpUsers = $users->where('id', '!=', $question->form->user_id)->random(5);
-            $choices = $question->choices;
-
-            foreach ($choices as $choice) {
-                foreach ($tmpUsers as $user) {
-
-                    if ($question->answer_type == 'MULTIPLE_CHOICES') {
-                        $numberOfAnswers = rand(1, count($question->choices));
-
-                        Answer::factory($numberOfAnswers)
-                        ->for($question)
-                        ->create(['question_id' => $question->id,
-                                  'user_id' => $user->id,
-                                  'choice_id' => $choice->id,
-                                  'answer' => null
-                        ]);
-
-                    }
-                    else if ($question->answer_type == 'ONE_CHOICE') {
-                        Answer::factory()
-                        ->for($question)
-                        ->create(['question_id' => $question->id,
-                                  'user_id' => $user->id,
-                                  'choice_id' => $choice->id,
-                                  'answer' => null
-                        ]);
-                    }
-                    else {
-                        Answer::factory()
-                        ->for($question)
-                        ->create(['question_id' => $question->id,
-                                  'user_id' => $user->id,
-                                  'choice_id' => $choice->id
-                        ]);
-                    }
-                }
-            }
-        }*/
     }
 }

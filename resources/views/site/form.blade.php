@@ -36,7 +36,12 @@
                                     Vendég válasza:
                                 @endisset
                             </p>
-                            <p> {{ $answer->answer }}</p>
+                            <p>
+                            @if ($answer->answer != null && $answer->answer != "")
+                            {{ $answer->answer }}
+                            @else
+                            Nem válaszolt erre a kérdésre.
+                            @endif</p>
                             <br>
                         @endforeach
                     @else
