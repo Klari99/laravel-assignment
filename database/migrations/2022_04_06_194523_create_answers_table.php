@@ -22,10 +22,10 @@ class CreateAnswersTable extends Migration
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->integer('choice_id');
+            $table->integer('choice_id')->nullable();
             $table->foreign('choice_id')->references('id')->on('choices');
 
-            $table->string('answer')->nullable();
+            $table->text('answer')->nullable();
             $table->timestamps();
         });
     }

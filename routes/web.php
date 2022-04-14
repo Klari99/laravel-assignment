@@ -21,17 +21,10 @@ Route::get('/', function () {
     return view('site/menu');
 })->name('menu')->middleware(['auth']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware(['auth']);
+Route::get('/create-form', [CreateFormController::class, 'show'])->name('create-form')->middleware(['auth']);
 
-Route::get('/create-form', [CreateFormController::class, 'show'])->name('create-form');
-
-Route::get('/forms', [FormsController::class, 'show'])->name('forms');
-
+Route::get('/forms', [FormsController::class, 'show'])->name('forms')->middleware(['auth']);
 Route::get('/forms/{id}', [FormsController::class, 'get'])->name('forms.get');
-
-Route::get('/forms/{id}', [FormsController::class, 'getWithAuth'])
-->name('forms.getWithAuth')->middleware(['auth']);
+Route::post('/forms/{id}', [FormsController::class, 'store'])->name('forms.store');
 
 require __DIR__.'/auth.php';
