@@ -43,7 +43,7 @@ class FormsController extends Controller
                 if($answers->count() > 0) {
                     $hasFillers = true;
                     foreach ($answers as $answer) {
-                        $fillers->push(User::findOrFail($answer->user_id));
+                        $fillers->push(User::find($answer->user_id));
                     }
                 }
             }
@@ -99,35 +99,39 @@ class FormsController extends Controller
                         Rule::in($choiceValues)]
                     ];
 
-                    $answerChoice = null;
+                    if ($request->has($question_id)) {
+                        $answerChoice = null;
 
-                    foreach($possibleChoices as $choice) {
-                        if($choice->choice == $request->input($question_id)) {
-                            $answerChoice = $choice;
+                        foreach($possibleChoices as $choice) {
+                            if($choice->choice == $request->input($question_id)) {
+                                $answerChoice = $choice;
+                            }
                         }
+
+                        $answer = new Answer([
+                            'user_id' => $user_id,
+                            'choice_id' => $answerChoice->id,
+                            'answer' => $answerChoice->choice,
+                        ]);
+
+                        if($user_id != null){
+                            $answer->user()->associate(Auth::user());
+                        }
+                        $answer->choice()->associate($answerChoice);
+                        $answer->question()->associate($question);
+                        array_push($answers, $answer);
                     }
-
-                    $answer = new Answer([
-                        'user_id' => $user_id,
-                        'choice_id' => $answerChoice->id,
-                        'answer' => $answerChoice->choice,
-                    ]);
-
-                    if($user_id != null){
-                        $answer->user()->associate(Auth::user());
-                    }
-                    $answer->choice()->associate($answerChoice);
-                    $answer->question()->associate($question);
-                    array_push($answers, $answer);
-
                 }
                 else {
                     if ($request->has($question_id)) {
                         $rules += [$question_id => Rule::in($choiceValues)];
 
                         $answerChoice = null;
+                        error_log($request->input($question_id));
+                        error_log("*******");
 
                         foreach($possibleChoices as $choice) {
+                            error_log($choice->choice);
                             if($choice->choice == $request->input($question_id)) {
                                 $answerChoice = $choice;
                             }
@@ -160,27 +164,29 @@ class FormsController extends Controller
                     $key = $question_id . ".*";
                     $rules += [$key => Rule::in($choiceValues)];
 
-                    foreach($request->input($question_id) as $choiceRequest) {
+                    if ($request->has($question_id)) {
+                        foreach($request->input($question_id) as $choiceRequest) {
 
-                        $answerChoice = null;
+                            $answerChoice = null;
 
-                        foreach($possibleChoices as $choice) {
-                            if($choice->choice == $choiceRequest) {
-                                $answerChoice = $choice;
+                            foreach($possibleChoices as $choice) {
+                                if($choice->choice == $choiceRequest) {
+                                    $answerChoice = $choice;
+                                }
                             }
-                        }
 
-                        $answer = new Answer([
-                            'user_id' => $user_id,
-                            'choice_id' => $answerChoice->id,
-                            'answer' => null,
-                        ]);
-                        if($user_id != null){
-                            $answer->user()->associate(Auth::user());
+                            $answer = new Answer([
+                                'user_id' => $user_id,
+                                'choice_id' => $answerChoice->id,
+                                'answer' => null,
+                            ]);
+                            if($user_id != null){
+                                $answer->user()->associate(Auth::user());
+                            }
+                            $answer->choice()->associate($answerChoice);
+                            $answer->question()->associate($question);
+                            array_push($answers, $answer);
                         }
-                        $answer->choice()->associate($answerChoice);
-                        $answer->question()->associate($question);
-                        array_push($answers, $answer);
                     }
                 }
                 else {
@@ -217,17 +223,19 @@ class FormsController extends Controller
                 if ($question->required) {
                     $rules += [$question_id => 'required|max:1000'];
 
-                    $answer = new Answer([
-                        'user_id' => $user_id,
-                        'choice_id' => null,
-                        'answer' => $request->input($question_id),
-                    ]);
+                    if ($request->has($question_id)) {
+                        $answer = new Answer([
+                            'user_id' => $user_id,
+                            'choice_id' => null,
+                            'answer' => $request->input($question_id),
+                        ]);
 
-                    if($user_id != null){
-                        $answer->user()->associate(Auth::user());
+                        if($user_id != null){
+                            $answer->user()->associate(Auth::user());
+                        }
+                        $answer->question()->associate($question);
+                        array_push($answers, $answer);
                     }
-                    $answer->question()->associate($question);
-                    array_push($answers, $answer);
                 }
                 else {
                     $rules += [$question_id => 'min:0|max:1000'];
@@ -254,6 +262,10 @@ class FormsController extends Controller
             "max" => "A válasz nem lehet hosszabb 1000 karakternél!"
         ];
         $request->validate($rules, $customMessages);
+
+        foreach($answers as $answer) {
+            $answer->save();
+        }
 
         return view('site.successfully-filled-form', ['success' => true, 'form' => $form]);
     }
