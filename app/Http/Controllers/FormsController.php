@@ -14,7 +14,6 @@ class FormsController extends Controller
 {
     public function show()
     {
-        //TODO: created_by instead of user_id
         $forms = Form::where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->paginate(5);
         return view('site.forms', compact('forms'));
     }
@@ -60,7 +59,6 @@ class FormsController extends Controller
 
         $form = Form::findOrFail($id);
 
-        //TODO: maybe torolni
         if(Auth::user() == null) {
             if($form->auth_required) {
                 return redirect()->route('menu');
@@ -127,8 +125,6 @@ class FormsController extends Controller
                         $rules += [$question_id => Rule::in($choiceValues)];
 
                         $answerChoice = null;
-                        error_log($request->input($question_id));
-                        error_log("*******");
 
                         foreach($possibleChoices as $choice) {
                             error_log($choice->choice);

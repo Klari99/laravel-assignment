@@ -9,13 +9,24 @@
         @if ($hasFillers)
             <span class="text-muted d-inline p-2">Az űrlapnak már van kitöltője, ezért nem módosítható.</span>
         @else
-            <button type="button" class="btn btn-outline-primary d-inline p-2 px-2 mb-3">Módosítás</button>
+        <form class="d-inline p-2 px-2 mb-3" method="get" action="{{ route('form.modify', ['id' => $form->id]) }}">
+            <button type="submit" class="btn btn-outline-primary d-inline p-2 px-2 mb-3">Módosítás</button>
+        </form>
         @endif
     </div>
     <hr />
     <div class="table-responsive">
         @foreach ($form->questions as $question)
             <div>
+                <p class="text-muted p-2">Kérdés típusa:
+                    @if ($question->answer_type == 'TEXTAREA')
+                        szöveges válasz.
+                    @elseif ($question->answer_type == 'ONE_CHOICE')
+                        egy válaszlehetőség.
+                    @else
+                        több válaszlehetőség.
+                    @endif
+                </p>
                 <h2>{{ $question->question }}</h2>
                 @if($question->answer_type != 'TEXTAREA')
                     @if ($question->answers->count() == 0)

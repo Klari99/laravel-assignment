@@ -18,16 +18,13 @@ class ChoiceSeeder extends Seeder
         $questions = Question::all();
         foreach ($questions as $question) {
 
-            if ($question->answer_type == 'TEXTAREA') {
-                $numberOfChoices = 1;
-            }
-            else {
+            if ($question->answer_type != 'TEXTAREA') {
                 $numberOfChoices = rand(3, 6);
-            }
 
-            Choice::factory($numberOfChoices)
+                Choice::factory($numberOfChoices)
                 ->for($question)
                 ->create(['question_id' => $question->id]);
+            }
         }
     }
 }
