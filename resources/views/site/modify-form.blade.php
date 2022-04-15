@@ -54,7 +54,7 @@
                             több válaszlehetőség.
                         @endif
                     </p>
-                    <label class="form-label h3" for="{{ 'question-'.$question->id }}">Kérdés: {{ 'question-'.$question->id }}</label><br>
+                    <label class="form-label h3" for="{{ 'question-'.$question->id }}">Kérdés:</label><br>
                     <input
                     class="form-control @error('question-'.$question->id) is-invalid @enderror"
                     type="text"
@@ -73,7 +73,7 @@
                             <input
                             class="form-control @error('choice-'.$choice->id) is-invalid @enderror"
                             type="text"
-                            id="{{ $choice->id }}"
+                            id="{{ 'choice-'.$choice->id }}"
                             name="{{ 'choice-'.$choice->id }}"
                             value="{{ old('choice-'.$choice->id, $choice->choice) }}">
                             @error('choice-'.$choice->id)
@@ -86,11 +86,6 @@
                 </div>
                 <hr />
             @endforeach
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{$error}}</div>
-                @endforeach
-            @endif
             <button class="btn btn-primary" type="submit">Űrlap módosítása</button>
         </div>
     </form>

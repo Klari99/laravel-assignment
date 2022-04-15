@@ -23,7 +23,7 @@
                         <div><a href="{{ route('forms.get', ['id' => $form->id]) }}">{{ $form->title }}</a></div>
                     </td>
                     <td>
-                        <div>{{ $form->expires_at }}</div>
+                        <div>{{ Carbon::parse($form->expires_at) }}</div>
                     </td>
                     <td>
                         <div>
