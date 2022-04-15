@@ -9,7 +9,7 @@
         @if ($hasFillers)
             <span class="text-muted d-inline p-2">Az űrlapnak már van kitöltője, ezért nem módosítható.</span>
         @else
-        <form method="get" action="{{ route('form.modify', ['id' => $form->id]) }}">
+        <form class="d-inline p-2 px-2 mb-3" method="get" action="{{ route('form.modify', ['id' => $form->id]) }}">
             <button type="submit" class="btn btn-outline-primary d-inline p-2 px-2 mb-3">Módosítás</button>
         </form>
         @endif

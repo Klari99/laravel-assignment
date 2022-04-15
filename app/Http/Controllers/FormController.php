@@ -91,6 +91,17 @@ class FormController extends Controller
         ];
         $request->validate($rules, $customMessages);
 
+        $form->title = $request->input('title');
+        $form->expires_at = $request->input('expires_at');
+        if($request->has('auth_required')) {
+            $form->auth_required = $request->input('auth_required');
+        }
+        else{
+            $form->auth_required = false;
+        }
+
+        $form->update();
+
         foreach($newQuestions as $question) {
             error_log($question->question);
             $question->update();
