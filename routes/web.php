@@ -17,7 +17,6 @@ use App\Http\Controllers\CreateFormController;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
     return view('site/menu');
 })->name('menu')->middleware(['auth']);
 

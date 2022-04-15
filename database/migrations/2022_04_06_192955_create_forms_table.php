@@ -19,10 +19,8 @@ class CreateFormsTable extends Migration
             $table->dateTime('expires_at');
             $table->boolean('auth_required')->default(false);
 
-            //TODO: user_id????
             $table->integer('user_id');
-            //$table->integer('created_by');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id', 'created_by')->references('id')->on('users');
 
             $table->timestamps();
         });
