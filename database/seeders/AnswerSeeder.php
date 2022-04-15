@@ -56,11 +56,9 @@ class AnswerSeeder extends Seeder
                         ]);
                     }
                     else {
-                        $choice = $choices->random(1)->first();
                         Answer::factory()
                         ->for($question)
                         ->create(['question_id' => $question->id,
-                                //'choice_id' => $choice->id,
                                 'choice_id' => null,
                                 'user_id' => $user->id
                         ]);
